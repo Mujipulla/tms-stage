@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<meta charset="UTF-8">
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="description" content="">
+		<meta name="author" content="">
+		<title>
+			{% block title %}TMS: Accueil{% endblock %}
+		</title>
+		{# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+		{% block stylesheets %}
+			{{ encore_entry_link_tags('app') }}
+			{{ encore_entry_link_tags('flex') }}
+			{{ encore_entry_link_tags('bootstrap') }}
+			{{ encore_entry_link_tags('fontawesome') }}
+			<link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.css" rel="stylesheet"/>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/w3-css/4.1.0/w3.css" integrity="sha512-Ef5r/bdKQ7JAmVBbTgivSgg3RM+SLRjwU0cAgySwTSv4+jYcVeDukMp+9lZGWT78T4vCUxgT3g+E8t7uabwRuw==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+			<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet"/>
+		{% endblock %}
+	</head>
+	<body>
+		{% include '_partials/nav.html.twig' %}
+
+		<main
+			role="main" class="pt-5" style="margin-bottom: 50px">
+			{# si le block carousel est défini #}
+			{% if block ('carousel') is defined %}
+				<div id="carouselExampleTouch" class="carousel slide" data-mdb-touch="false">
+					<div class="carousel-indicators">
+						{% for key,item in carousels %}
+							<button type="button" data-mdb-target="#carouselExampleTouch" data-mdb-slide-to="{{ key }}" {% if key == 0 %} class="active" {% endif %} aria-current="true"></button>
+						{% endfor %}
+					</div>
+
+					<div class="carousel-inner">
+						{% set firstActiveFound = false %}
+						{% for key,item in carousels %}
+							{% if item.isActivated %}
+								<div class="carousel-item {% if not firstActiveFound %}active{% set firstActiveFound = true %}{% endif %}">
+									<div class="overlay"></div>
+									<img class="first-slide" src="{{ asset('uploads/' ~ item.illustration) }}" alt="{{ item.name }}">
+									<div class="carousel-caption d-none d-md-block">
+										<h1 class="text-start text-uppercase">{{ item.name }}</h1>
+										<p class="text-start">{{ item.description }}</p>
+										<p class="text-start">
+											<a class="btn btn-lg w3-btn text-white w3-black custom-button" href="{{ item.bntUrl }}" role="button">
+												{{ item.btnTitle }}
+											</a>
+										</p>
+									</div>
+								</div>
+							{% endif %}
+						{% endfor %}
+					</div>
+
+					<button class="carousel-control-prev" type="button" data-mdb-target="#carouselExampleTouch" data-mdb-slide="prev">
+						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+						<span class="visually-hidden">Previous</span>
+					</button>
+
+					<button class="carousel-control-next" type="button" data-mdb-target="#carouselExampleTouch" data-mdb-slide="next">
+						<span class="carousel-control-next-icon" aria-hidden="true"></span>
+						<span class="visually-hidden">Next</span>
+					</button>
+
+				</div>
+			{% endif %}
+
+			{# si le block carousel n'est pas défini, alors ajoute un margin-top de 5 #}
+			<div class="w3-container {% if block('carousel') is not defined %}mt-5{% endif %}" style="margin-top: 100px;"> {% block body %}{% endblock %}
+			</div>
+		</main>
+			<footer class="text-center text-white">
+				<!-- Grid container -->
+				<div
+					class="container p-4">
+					<!-- Section: Social media -->
+					<section
+						class="mb-4">
+						<!-- Facebook -->
+						<a class="btn btn-outline-light btn-floating m-1 text-white" href="#!" role="button">
+							<i class="fab fa-facebook-f"></i>
+						</a>
+
+						<!-- Twitter -->
+						<a class="btn btn-outline-light btn-floating m-1 text-white" href="#!" role="button">
+							<i class="fab fa-twitter"></i>
+						</a>
+
+						<!-- Google -->
+						<a class="btn btn-outline-light btn-floating m-1 text-white" href="#!" role="button">
+							<i class="fab fa-google"></i>
+						</a>
+
+						<!-- Instagram -->
+						<a class="btn btn-outline-light btn-floating m-1 text-white" href="#!" role="button">
+							<i class="fab fa-instagram"></i>
+						</a>
+
+						<!-- Linkedin -->
+						<a class="btn btn-outline-light btn-floating m-1 text-white" href="#!" role="button">
+							<i class="fab fa-linkedin-in"></i>
+						</a>
+
+						<!-- Github -->
+						<a class="btn btn-outline-light btn-floating m-1 text-white" href="#!" role="button">
+							<i class="fab fa-github"></i>
+						</a>
+					</section>
+					<!-- Section: Social media -->
+
+					<!-- Section: Form -->
+					<section class="">
+						<form action="">
+							<!--Grid row-->
+							<div
+								class="row d-flex justify-content-center">
+								<!--Grid column-->
+								<div class="col-auto">
+									<p class="pt-2">
+										<strong>Inscrivez-vous à notre newsletter</strong>
+									</p>
+								</div>
+								<!--Grid column-->
+
+								<!--Grid column-->
+								<div
+									class="col-md-5 col-12">
+									<!-- Email input -->
+									<div class="form-outline form-white mb-4">
+										<input type="email" id="form5Example21" class="form-control"/>
+										<label class="form-label" for="form5Example21">Adresse mail</label>
+									</div>
+								</div>
+								<!--Grid column-->
+
+								<!--Grid column-->
+								<div
+									class="col-auto">
+									<!-- Submit button -->
+									<button type="submit" class="btn btn-outline-light mb-4">
+										S'abonner
+									</button>
+								</div>
+								<!--Grid column-->
+							</div>
+							<!--Grid row-->
+						</form>
+					</section>
+					<!-- Section: Form -->
+
+					<!-- Section: Text -->
+					<section class="mb-4">
+						<p>
+							Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt distinctio earum
+							                repellat quaerat voluptatibus placeat nam, commodi optio pariatur est quia magnam
+							                eum harum corrupti dicta, aliquam sequi voluptate quas.
+						</p>
+					</section>
+					<!-- Section: Text -->
+
+					<!-- Section: Links -->
+					<section class="mt-5">
+						<!--Grid row-->
+						<div
+							class="row">
+							<!--Grid column-->
+							<div class="col-lg-4 col-md-6 mb-4 mb-md-0" style="text-align:left">
+								<h5 class="text-uppercase mb-3">Blog</h5>
+								<p>
+                                    Site d'informations et d'actualités sur tous les sujets relatifs à l'informatique,
+                                    l'economie, la situation dans le monde, etc...
+                                </p>
+							</div>
+							<!--Grid column-->
+
+							<!--Grid column-->
+							<div class="col-lg-4 col-md-6 mb-4 mb-md-0" style="text-align:left">
+								<h5 class="text-uppercase mb-3">Mentions légales</h5>
+                                <ul class="list-unstyled mb-0">
+                                    <li><a href="">Condition d'utilisation</a></li>
+                                    <li><a href="">Condition de ventes</a></li>
+                                    <li><a href="">Condition de publication</a></li>
+                                </ul>
+							</div>
+							<!--Grid column-->
+
+							<!--Grid column-->
+							<div class="col-lg-4 col-md-6 mb-4 mb-md-0" style="text-align:left">
+								<h5 class="text-uppercase mb-3">Formations gratuites</h5>
+								<ul class="list-unstyled mb-0">
+                                    <li><a href="https://free.mudey.fr/programme/apprendre-les-bases-indispensables-du-langage-html-5" target="_blank">Les bases HTML 5</a></li>
+                                    <li><a href="https://free.mudey.fr/programme/apprendre-les-bases-indispensables-du-langage-css-3" target="_blank">Les bases CSS 3</a></li>
+                                    <li><a href="https://free.mudey.fr/programme/apprendre-les-bases-indispensables-du-langages-javascript" target="_blank">Les bases JavaScript</a></li>
+                                    <li><a href="https://free.mudey.fr/programme/les-bases-indispensables-du-langage-php" target="_blank">Les bases PHP</a></li>
+                                    <li><a href="https://mudey.fr/programme/formation-complete-developpeur-web-full-stack" target="_blank">Devenir Expert du Web</a></li>
+                                </ul>
+							</div>
+						</div>
+						<!--Grid row-->
+					</section>
+					<!-- Section: Links -->
+					<div class=" align-content-center mx-auto" role="toolbar" aria-label="Toolbar with button groups">
+						<div class="d-flex justify-content-center me-2" role="group" aria-label="First group">
+							<span class="btn-outline p-2">
+								<i class="fa-brands fa-cc-visa fa-3x"></i>
+							</span>
+							<span class="btn-outline p-2">
+								<i class="fa-brands fa-cc-mastercard fa-3x"></i>
+							</span>
+							<span class="btn-outline p-2">
+								<i class="fa-brands fa-cc-paypal fa-3x"></i>
+							</span>
+							<span class="btn-outline p-2">
+								<i class="fa-brands fa-cc-apple-pay fa-3x"></i>
+							</span>
+						</div>
+				    </div>
+				</div>
+				<!-- Grid container -->
+
+				
+				<!-- Copyright -->
+				<div class="text-center p-3">
+					© 2020 Copyright:
+					<a class="text-white" href="#">TMS</a>
+				</div>
+			</footer>
+			<!-- Footer -->
+
+
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js" integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.bundle.min.js" integrity="sha512-i9cEfJwUwViEPFKdC1enz4ZRGBj8YQo6QByFTF92YXHi7waCqyexvRD75S5NVTsSiTv7rKWqG9Y5eFxmRsOn0A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+			<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.js"></script>
+
+			{% block javascripts %}
+				{{ encore_entry_script_tags('app') }}
+			{% endblock %}
+	</body>
+</html>

@@ -1,0 +1,44 @@
+<div class="w3-card mb-5 mt-5">
+    <a href="{{ path('product', {slug: product.slug}) }}">
+        <img src="{{ asset('uploads/' ~ product.illustration) }}" class="img-fluid" alt="{{ product.name }}">
+    </a>
+    <div class="card-body">
+        <div class="card-header text-center">
+            <h5 class="card-title text-center">
+				<a href="{{ path('product', {slug: product.slug}) }}">
+					<b>{{ product.name }}</b>
+				</a>
+			</h5>
+		</div>
+		<ul class="list-group list-group-light list-group-small">
+			<li class="list-group-item px-5"></li>
+		</ul>
+		<div class="card-body">
+			<p class="card-text p-xl-3">{{ product.description|striptags }}</p>
+        </div>
+
+        <div class="card-footer text-muted text-center">
+            {% if product.isStock >= 50 %}
+				{% set euros = (product.price / 100)|number_format(0, ',', ',') %}
+				{% set cents = ((product.price % 100) / 100)|number_format(2, ',', ',')|slice(2) %}
+
+                <div class="btn-group btn-group-sm w-100" role="group" aria-label="Basic example">
+				    <button type="button" class="w3-button w-100" style="background-color: #146c94; color:white">
+                    	<a class="text-white" href="{{ path('add_to_cart', {id: product.id}) }}"><i class="fas fa-cart-plus"></i></a>
+					</button>
+				    <button type="button" class="w3-button w-100" style="background-color: #146c94; color:white">
+                        <a href="{{ path('cart_favorites') }}" class="text-reset me-3"><i class="fas fa-heart"></i></a>
+                    </button>
+           
+                    <button type="button" class="w3-button w-100" style="background-color: #146c94; color:white">
+						<b style="font-size:1.5rem">€{{ euros }}</b><b><sup>  {{ cents }}</sup></b>
+					</button>
+                </div>
+            {% else %}
+                <b class="text-danger">En rupture de stock</b>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+

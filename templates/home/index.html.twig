@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} TMS {% endblock %}
+
+{% block body %}
+{% block carousel %}{% endblock %}
+    <div class="container mt-5">
+        <h1 class="mutted text-uppercase">Notre premier choix pour vous </h1>
+        <div class="row w3-card p-3">
+            {% for choice in choix %}
+                {% if choice %}
+                    <div class="col-md-6">
+                        <img src="{{ asset('uploads/' ~ choice.illustration) }}" class="img-fluid" alt="{{ choice.name }}">
+                    </div>
+                    <div class="col-md-6 pl-3 bordr border-danger">
+                        <h2 class="mutted text-dark">{{ choice.name }}</h2>
+                        <p>{{ choice.subtitle }}</p>
+                        <p class="mt-5">{{ choice.description|striptags }}</p>
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <h2 class="mt-5"><b class="badge badge-light rounded-pill fs-10">€{{ ((choice.price) / 100)|number_format(2, '.', ',') }}</b></h2>
+                            </div>
+                            <div>
+                                <a href="{{ path('add_to_cart', {'id': choice.id}) }}" class="btn btn-block mt-5 mb-5 w-100" style="background-color: #146c94; color:white">
+                                <i class="fas fa-cart-plus"></i> Ajouter au panier</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+
+
+    <div class="container mt-5">
+        <h1>Les favoris de nos clients </h1>
+        <p>Découvrez notre sélection des produits les plus populaires !</p>
+        <div class="row">
+            {% for bestProduct in bestProducts %}
+                <div class="col-md-3">
+                    <div class="card mb-5 mt-5" style="width: 18rem;">
+                        <a href="{{ path('product', {slug: bestProduct.slug}) }}">
+                            <img src="{{ asset('uploads/' ~ bestProduct.illustration) }}" class="img-fluid card-img-top" alt="{{ bestProduct.name }}">
+                        </a>	
+                        <div class="card-body">
+                            <h5 class="card-title text-center">
+                                <a href="{{ path('product', {slug: bestProduct.slug}) }}">
+                                    <b style="color: #146c94">{{ bestProduct.name }}</b>
+                                </a>
+                            </h5>
+                        </div>
+                        <ul class="list-group list-group-light list-group-small">
+                            <li class="list-group-item px-4"></li>
+                        </ul>
+                        {% if bestProduct.isStock >= 50 %}
+                        <div class="card-body">
+                            <a class="btn btn-block text-white" href="{{ path('add_to_cart', {id: bestProduct.id}) }}" style="background-color: #146c94; color:white">
+                                <i class="fas fa-cart-plus"></i>
+                            </a>
+                        </div>
+                        <div class="card-footer text-muted text-center">
+                            {# <a href="#" class="card-link" style="text-align:right"><b>{{ (bestProduct.price / 100)|number_format(2, ',', ',') }}€</b></a> #}
+                            {% set euros = (bestProduct.price / 100)|number_format(0, ',', ',') %}
+                            {% set cents = ((bestProduct.price % 100) / 100)|number_format(2, ',', ',')|slice(2) %}
+                            <a href="#" class="card-link text-danger" style="text-align:right"><b style="font-size:1.5rem">{{ euros }}</b><b><sup> €{{ cents }}</sup></b></a>
+
+                        </div>
+                        {% else %}
+                            <div class="card-footer text-muted">
+                                <b class="text-danger">En rupture de stock</b>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+
