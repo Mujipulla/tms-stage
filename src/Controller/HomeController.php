@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Classe\Cart;
 use App\Entity\User;
 use App\Classe\Search;
+use App\Entity\About;
 use App\Entity\Product;
 use App\Entity\Carousel;
 use App\Entity\Category;

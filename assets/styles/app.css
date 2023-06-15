@@ -55,7 +55,6 @@ i {
     opacity: 1;
 }
 
-
 .shiny-button {
     box-shadow: rgba(20, 108, 148, 0.5) 0px 10px 36px 0px, rgba(20, 108, 148, 0.3) 0px 0px 0px 1px !important;
     transition: box-shadow 0.3s ease-in-out;
@@ -362,10 +361,6 @@ footer ul li{
     line-height: 1.2;
     padding-bottom: 15px;
 }
-
-/* Fin du Footer */
-
-/********* FIN BARRE DE NAVIGATION PERSONNALISÉE *********/
 
 /********* MEDIA QUERIES MAX 768 *********/
 @media screen and (max-width: 768px) {

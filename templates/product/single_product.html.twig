@@ -2,6 +2,11 @@
     <a href="{{ path('product', {slug: product.slug}) }}">
         <img src="{{ asset('uploads/' ~ product.illustration) }}" class="img-fluid" alt="{{ product.name }}">
     </a>
+    <div class="text-right" style="z-index: 1000; transform: translate(0% 0%);top:-5%; left:5%">
+        {% for author in  product.getAuthorFullname %}
+            <img src="{{ asset('uploads/' ~ author.authorImage) }}" class="img-fluid btn-floating" alt="{{ author.authorFullname }}">
+        {% endfor %}
+    </div>
     <div class="card-body">
         <div class="card-header text-center">
             <h5 class="card-title text-center">
@@ -14,7 +19,14 @@
 			<li class="list-group-item px-5"></li>
 		</ul>
 		<div class="card-body">
-			<p class="card-text p-xl-3">{{ product.description|striptags }}</p>
+            {% for author in  product.getAuthorFullname %}
+			    <p class="card-text p-xl-3">
+                    de {{ author.getAuthorFullname() }} | 
+                    <a href="{{ path('author_products', {'id': author.getId()}) }}">
+                        Voir ses cours
+                    </a> 
+                </p>
+            {% endfor %}
         </div>
 
         <div class="card-footer text-muted text-center">
@@ -26,7 +38,7 @@
 				    <button type="button" class="w3-button w-100" style="background-color: #146c94; color:white">
                     	<a class="text-white" href="{{ path('add_to_cart', {id: product.id}) }}"><i class="fas fa-cart-plus"></i></a>
 					</button>
-				    <button type="button" class="w3-button w-100" style="background-color: #146c94; color:white">
+				     <button type="button" class="w3-button w-100" style="background-color: #146c94; color:white">
                         <a href="{{ path('cart_favorites') }}" class="text-reset me-3"><i class="fas fa-heart"></i></a>
                     </button>
            

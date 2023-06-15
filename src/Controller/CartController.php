@@ -87,10 +87,7 @@ class CartController extends AbstractController
     {
         $cart->favorites($id); // On ajoute le produit aux favoris
         $favorites = $cart->getFavorites(); // On récupère les produits favoris
-        //dd($favorites); // On affiche les produits favoris (pour vérifier)
-
-        //return $this->redirectToRoute('cart');
-
+    
         return $this->render('account/favoris.html.twig', [
             'favorites' => $favorites,
         ]);

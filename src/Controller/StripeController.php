@@ -57,7 +57,7 @@ class StripeController extends AbstractController
             // On ajoute le prix du transporteur
         ];
 
-        Stripe::setApiKey('sk_test_51MctScAfpYZJnEmGpSaAbZEGqoeUQsjIh0mo25uFmXNWC0b0AUiZlDQkAGZHpJknmFDf5jyiFye9l7YFmDxzu4O4006S2kXHd4');
+        Stripe::setApiKey('sk_test_51NIoT9KSCS1rjWkjYIXYJhhpRa2tAebE9CYSSc4U0ntryf5SI1tNWsXQQDCKC9Y41S2G5c8IHDLD1obcuAjk8dee00huWGzuoq');
 
         $checkoutSession = Session::create([
             'customer_email' => $this->getUser()->getEmail(),

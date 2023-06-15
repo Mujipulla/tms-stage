@@ -33,7 +33,7 @@
                                     <p class="my-0 fw-normal">
                                         <div class="btn-group">
                                             <a class="btn active btn-outline-light" href="{{ path('account_address_edit', {'id': address.id}) }}" style="background-color: #146c94; color:white">Éditer</a>
-                                            <a class="btn btn-outline-light" href="#" class="delete-address" data-address-id="{{ address.id }}" id="delete" style="background-color: #146c94; color:white">Supprimer</a>
+                                            <a class="btn btn-outline-light" href="{{ path('account_address_delete', {'id': address.id}) }}" class="delete-address" data-address-id="{{ address.id }}" id="delete" style="background-color: #146c94; color:white">Supprimer</a>
                                         </div>
                                     </p>
                                 </div>

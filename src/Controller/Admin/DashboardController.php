@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\About;
 use App\Entity\Author;
 use App\Entity\User;
 use App\Entity\Order;
@@ -133,6 +134,12 @@ class DashboardController extends AbstractDashboardController
 
         yield MenuItem::section('Gestion des auteurs');
         yield MenuItem::linkToCrud('Auteurs', 'fas fa-feather', Author::class)
+            ->setDefaultSort(['id' => 'DESC'])
+            ->setCssClass('text-uppercase font-weight-bold text-warning')
+            ->setPermission('ROLE_ADMIN');
+
+        yield MenuItem::section('A propos');
+        yield MenuItem::linkToCrud('A propos', 'fa-solid fa-people-group', About::class)
             ->setDefaultSort(['id' => 'DESC'])
             ->setCssClass('text-uppercase font-weight-bold text-warning')
             ->setPermission('ROLE_ADMIN');

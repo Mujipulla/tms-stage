@@ -31,6 +31,11 @@ class Author
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $authorImage = null;
 
+    public function __toString(): string
+    {
+        return $this->authorFullname;
+    }
+
     public function __construct()
     {
         $this->products = new ArrayCollection();

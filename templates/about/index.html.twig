@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} A propos {% endblock %}
+
+{% block body %}
+
+    <div class="container mt-5">
+        <div class="row">
+        {% for about in about %}
+            {% if about %}
+                <div class="col-md-6 mx-auto mt-4">
+                    <img src="{{ asset('uploads/' ~ about.aboutImage) }}" class="img-fluid" alt="A Propos de TMS">
+                </div>
+                    <div class="col-md-6 mx-auto">
+                        <h1 class='mx-auto d-flex justify-content-center'> A propos </h1>
+                       <p class="card-text">{{ about.aboutText|striptags }}</p>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+        </div>
+    </div>
+{% endblock %}

@@ -53,6 +53,11 @@ class Product
     #[ORM\ManyToMany(targetEntity: Author::class, inversedBy: 'products')]
     private Collection $authorFullname;
 
+    public function __toString(): string
+    {
+        return $this->getName();
+    }
+
 
     public function __construct()
     {
@@ -171,11 +176,6 @@ class Product
         $this->isStock = $isStock;
 
         return $this;
-    }
-
-    public function __toString(): string
-    {
-        return $this->getName();
     }
 
     /**

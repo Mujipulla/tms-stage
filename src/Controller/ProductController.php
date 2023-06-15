@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Classe\Cart;
 use App\Classe\Search;
+use App\Entity\Author;
 use App\Entity\Product;
 use App\Entity\Category;
 use App\Form\SearchType;
@@ -63,28 +64,43 @@ class ProductController extends AbstractController
         ]);
     }
 
-    #[Route("/cart/favorite/{id}", name: 'cart_favorite')]
+    #[Route("/produits/favorite/{id}", name: 'cart_favorite')]
     public function favorites($id, Cart $cart): Response
     {
         $cart->favorites($id); // On ajoute le produit aux favoris
         $favorites = $cart->getFavorites(); // On récupère les produits favoris
         //dd($favorites); // On affiche les produits favoris (pour vérifier)
 
-        //return $this->redirectToRoute('cart');
-
         return $this->render('account/favoris.html.twig', [
             'favorites' => $favorites,
         ]);
     }
 
-    #[Route("/cart/favorites", name: 'cart_favorites')]
+    #[Route("/produits/add-favorites", name: 'cart_favorites')]
     public function showFavorites(Cart $cart): Response
     {
         $favorites = $cart->getFavorites(); // On récupère les produits favoris
+        dd($favorites); // On affiche les produits favoris (pour vérifier
 
         return $this->render('account/favoris.html.twig', [
             'favorites' => $favorites,
         ]);
     }
+
+    // On affiche les articles d'un auteur
+    #[Route('/produits/auteur/{id}', name: 'author_products')]
+    public function showAuthorProducts($id): Response
+    {
+        $author = $this->em->getRepository(Author::class)->find($id);
+        $authors = $this->em->getRepository(Author::class)->findAll();
+        $products = $author->getProducts();
+
+        return $this->render('product/author.products.html.twig', [
+            'author' => $author,
+            'authors' => $authors,
+            'products' => $products,
+        ]);
+    }
+
 
 }
